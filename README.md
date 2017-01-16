@@ -8,6 +8,8 @@ Now you would like to gather all logfiles from all those vhosts and do some craz
 
 This module will collect all those relevant informations from various software (if installed) and will make them availbale as facts.
 
+### Facts
+
 * Apache2 (Apache2 vhost facts)
   - apache.vhosts[].name - Hostname from ServerName
   - apache.vhosts[].port - Port
