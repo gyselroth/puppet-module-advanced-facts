@@ -8,9 +8,44 @@ Now you would like to gather all logfiles from all those vhosts and do some craz
 
 This module will collect all those relevant informations from various software (if installed) and will make them availbale as facts.
 
-* Apache2
-  apache2.vhosts[].name - Hostname from ServerName
-  apache2.vhosts[].port - Port
-  apache2.vhosts[].ssl - Will be true if ssl is enabled on this vhost
-  apache2.vhosts[].access_log - Path to the CustomLog
-  apache2.vhosts[].error_log - Path to the ErrorLog
+* Apache2 (Apache2 vhost facts)
+  - apache.vhosts[].name - Hostname from ServerName
+  - apache.vhosts[].port - Port
+  - apache.vhosts[].ssl - Will be true if ssl is enabled on this vhost
+  - apache.vhosts[].access_log - Path to the CustomLog
+  - apache.vhosts[].error_log - Path to the ErrorLog
+* APT packages
+  - packages[] - All installed deb packages with version as value and package name as key
+* Elasticsearch
+  - elasticsearch.bind - Bind interface
+  - elasticsearch.port - Port
+* fstab
+  - fstab[],device - Device
+  - fstab[].mount - Mountpoint
+  - fstab[].filesystem - Filesystem
+  - fstab[].options - Mount options
+  - fstab[].freq - Needed by dump
+  - fstab[].passno - fsck at boot time
+  - fstab[].devicelabel - Device label (if set)
+* MongoDB
+  - mongodb.dbpath - Path to datastore
+  - mongodb.logpath - Path to logfile
+  - mongodb.replset - Replset name
+  - mongodb.bind_ip - Bind interface
+* MySQL (Maria or Percona)
+  - mysql.type - Will be resolved to one of mysql, mariadb or percona
+  - mysql.bind - Bind interface
+  - mysql.port - Port
+* Nginx (Nginx vhost facts)
+  - nginx.vhosts[].name - Hostname from server_name
+  - nginx.vhosts[].port - port
+  - nginx.vhosts[].ssl - Will be true if ssl is enabled on this vhost
+  - nginx.vhosts[].access_log - Path to the access_log
+  - nginx.vhosts[].error_log - Path to the error_log
+* Redis
+  - redis.bind - Bind interface
+  - redis.port - Port
+* Services
+  - services[] - Installed services from /etc/init.d
+* Windows Packages
+  - packages[] - All installed applications with version as value and application name as key
