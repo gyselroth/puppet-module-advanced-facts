@@ -6,7 +6,7 @@ Facter.add("mysql") do
         'type' => 'mysql'
     }
 
-    installed_mariadb = Facter::Util::Resolution.exec("/usr/bin/dpkg-query --show -f '${status}' mariadb-server-10.1 | cut -d ' ' -f1")
+    installed_mariadb = Facter::Util::Resolution.exec("/usr/bin/dpkg-query --show -f '${status}' mariadb-server | cut -d ' ' -f1")
     installed_mysql   = Facter::Util::Resolution.exec("/usr/bin/dpkg-query --show -f '${status}' mysql-server | cut -d ' ' -f1")
     installed_percona = Facter::Util::Resolution.exec("/usr/bin/dpkg-query --show -f '${status}' percona-server | cut -d ' ' -f1")
 
@@ -23,10 +23,10 @@ Facter.add("mysql") do
             params['type'] = 'install'
         end
 
-        cat = Facter::Util::Resolution.exec("cat /etc/mysql/my.cnf /etc/mysql/conf.d/* | grep -v '^#'")
+        cat = Facter::Util::Resolution.exec("cat /etc/mysql/my.cnf /etc/mysql/conf.d/* | grep -v '^#' | grep '='")
 
         cat.each_line do |line|
-            config = line.strip().split().join(" ").split('=')
+            config = line.strip().split().join().split('=')
             key    = config[0]
             value  = config[1]
 
