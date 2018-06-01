@@ -1,6 +1,5 @@
-# Puppet Module: Advanced facts
+# Puppet advanced facts
 
-### Description
 Deploy some facts to gather configuration data from already installed services (not managed by puppet).
 This way you can perform puppet actions for services installed on an agent even though they are not managed by puppet itself.
 For example you have an Apache2 webserver with various vhosts installed, but those vhosts are not deployed via puppet.
@@ -8,7 +7,7 @@ Now you would like to gather all logfiles from all those vhosts and do some craz
 
 This module will collect all those relevant informations from various software (if installed) and will make them availbale as facts.
 
-### Facts
+## Facts
 
 * Apache2 (Apache2 vhost facts)
   - apache.vhosts[].name - Hostname from ServerName
@@ -16,8 +15,8 @@ This module will collect all those relevant informations from various software (
   - apache.vhosts[].ssl - Will be true if ssl is enabled on this vhost
   - apache.vhosts[].access_log - Path to the CustomLog
   - apache.vhosts[].error_log - Path to the ErrorLog
-* APT packages
-  - packages[] - All installed deb packages with version as value and package name as key
+* APT packages/Windows packages
+  - packages[] - All installed deb packages with version as value and package name as key or on windows all installed apps
 * Elasticsearch
   - elasticsearch.bind - Bind interface
   - elasticsearch.port - Port
@@ -48,6 +47,20 @@ This module will collect all those relevant informations from various software (
   - redis.bind - Bind interface
   - redis.port - Port
 * Services
-  - services[] - Installed services from /etc/init.d
-* Windows Packages
-  - packages[] - All installed applications with version as value and application name as key
+  - services[] - Installed services from init or systemd
+* Crontab
+  - crontab[hash_id].min - Minute
+  - crontab[hash_id].hour - Hour
+  - crontab[hash_id].dom - Day of month
+  - crontab[hash_id].month - Month
+  - crontab[hash_id].dow - Day of week
+  - crontab[hash_id].user - Cron user
+  - crontab[hash_id].command - Command
+* Kubernetes
+  - pods[].name - Name of the pod
+  - pods[].namespace - Pod namespace
+  - pods[].ip - IP address
+  - pods[].node - kubernetes node which started the pod
+* Windows facts
+  - windows_gui - `true` if explorer.exe is installed (`false` if it is a core server)
+  - windows_default_language - Language on which the installed windows core is based on
