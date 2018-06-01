@@ -1,5 +1,7 @@
 Facter.add("fstab") do
-    confine :kernel => :linux
+    confine :kernel => :Linux
+    
+  setcode do
     cat = Facter::Util::Resolution.exec("/bin/cat /etc/fstab")
 
     fstab = []    
@@ -31,7 +33,6 @@ Facter.add("fstab") do
         })
     end
 
-    setcode do
         fstab
    end
 end

@@ -20,42 +20,44 @@ Facter.add("nginx") do
         access_log = ''
         
         cat.each_line do |line|
-            if line.include? "server {"
-                if name != "" && port != ""
-                    params['vhosts'].push({
-                        'name'  => name,
-                        'port'  => port,
-                        'ssl'   => ssl,
-                        'access_log' => access_log,
-                        'error_log' => error_log
-                    })
-                    port = ""
-                    ssl  = false
-                    name = ""
-                    error_log = ''
-                    access_log = ''
+            if !(line.start_with?("#"))
+                if line.include? "server {"
+                    if name != "" && port != ""
+                        params['vhosts'].push({
+                            'name'  => name,
+                            'port'  => port,
+                            'ssl'   => ssl,
+                            'access_log' => access_log,
+                            'error_log' => error_log
+                        })
+                        port = ""
+                        ssl  = false
+                        name = ""
+                        error_log = ''
+                        access_log = ''
+                    end
                 end
-            end
-            
-
-            if line.include? "access_log "
-                access_log=line.strip!.split.join(" ").split()[1].split(';')[0]
-            end
-            
-            if line.include? "error_log "
-               error_log=line.strip!.split.join(" ").split()[1].split(';')[0]
-            end
                 
-            if line.include? "server_name "
-                name=line.strip!.split.join(" ").split()[1].split(';')[0]
-            end
+    
+                if line.include? "access_log "
+                    access_log=line.strip!.split.join(" ").split()[1].split(';')[0]
+                end
                 
-            if line.include? "listen "
-                port=line.strip!.split.join(" ").split()[1].split(';')[0]
-            end
-            
-            if line.downcase.include? "ssl on"
-                ssl = true
+                if line.include? "error_log "
+                   error_log=line.strip!.split.join(" ").split()[1].split(';')[0]
+                end
+                    
+                if line.include? "server_name "
+                    name=line.strip!.split.join(" ").split()[1].split(';')[0]
+                end
+                    
+                if line.include? "listen "
+                    port=line.strip!.split.join(" ").split()[1].split(';')[0]
+                end
+                
+                if line.downcase.include? "ssl on"
+                    ssl = true
+                end
             end
         end
 

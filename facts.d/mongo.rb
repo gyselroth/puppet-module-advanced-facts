@@ -1,5 +1,5 @@
 Facter.add("mongodb") do
-    confine :kernel => :linux
+    confine :kernel => :Linux
     params = {}
     installed = Facter::Util::Resolution.exec("/usr/bin/dpkg-query --show -f '${status}' mongodb-server | cut -d ' ' -f1")
     if installed == "install"
