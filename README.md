@@ -1,5 +1,7 @@
 # Puppet advanced facts
 
+## Description
+
 Deploy some facts to gather configuration data from already installed services (not managed by puppet).
 This way you can perform puppet actions for services installed on an agent even though they are not managed by puppet itself.
 For example you have an Apache2 webserver with various vhosts installed, but those vhosts are not deployed via puppet.
